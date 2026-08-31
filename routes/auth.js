@@ -23,7 +23,7 @@ if(user == undefined ){
 else{
 const compare =bcrypt.compareSync(password,user.password_hash);
 if(!compare){
-  res.status(401).json({error:'invalid email'});
+  res.status(401).json({error:'invalid password'});
 }
 else{
   req.session.userid= user.id;

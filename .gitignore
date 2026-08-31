@@ -1,4 +1,4 @@
 node_modules/
 db/app.db
-cookies.txt
+cookies*.txt
 .DS_Store
