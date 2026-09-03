@@ -6,9 +6,12 @@ const requireAuth = require('../middleware/requireAuth.js')
 
 router.post('/profile', requireAuth, (req,res) =>{
 const{subject_studying, availible_time, bio}= req.body;
-const info =db.prepare('INSERT INTO profiles (subject_studying, availible_time, bio, user_id) VALUES( ?, ?, ?, ?)').run(subject_studying,availible_time,bio, req.session.userid);
+try {
+  const info =db.prepare('INSERT INTO profiles (subject_studying, availible_time, bio, user_id) VALUES( ?, ?, ?, ?)').run(subject_studying,availible_time,bio, req.session.userid);
 res.json({id: info.lastInsertRowid, subject_studying,availible_time,bio});
-
+} catch (error) {
+  res.status(409).json({error:'profile already exists'});
+}
 })
 
 router.get('/profile', requireAuth, (req,res)=>{

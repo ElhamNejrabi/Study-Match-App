@@ -9,7 +9,7 @@ created_time datetime default CURRENT_TIMESTAMP
 --creating the profile for the user, what they want to study, availible time etc,etc
 CREATE TABLE profiles(
 id integer PRIMARY KEY AUTOINCREMENT,
-user_id integer references users(id), -- the refernce goes to the users table and finds the id.
+user_id integer unique references users(id) , -- the refernce goes to the users table and finds the id.
 subject_studying text not null,
 availible_time text not null,
 bio text

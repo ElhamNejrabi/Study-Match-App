@@ -8,9 +8,13 @@ router.post('/signup', (req,res) => {
 const{email, password, name} = req.body;
 const hashPassword= bcrypt.hashSync(password,10);
 // saltRounds are 10
-const info = db.prepare('INSERT INTO users (email, user_name, password_hash) VALUES(?, ?, ?)').run(email,name,hashPassword) // ? ? ? is what is stored inside of SQL until the user inserts an email, password, and username. Then the ? ? ? is replaced by the users input
-req.session.userid = info.lastInsertRowid;
-res.json({id: info.lastInsertRowid, email: email, name: name})
+try {
+  const info = db.prepare('INSERT INTO users (email, user_name, password_hash) VALUES(?, ?, ?)').run(email,name,hashPassword) // ? ? ? is what is stored inside of SQL until the user inserts an email, password, and username. Then the ? ? ? is replaced by the users input
+  req.session.userid = info.lastInsertRowid;
+  res.json({id: info.lastInsertRowid, email: email, name: name})
+} catch (error) {
+  res.status(409).json({error:'email already in use'});
+}
 })
 
 //Login, takes the password that user puts in, hashes it and compares it to the hash that is stored. if not the same then gives an error.

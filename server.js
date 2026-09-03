@@ -2,6 +2,7 @@ const express = require('express');
 const sessions= require('express-session');
 const authRoutes= require('./routes/auth.js');
 const profileRoutes= require('./routes/profiles.js')
+const swipeRoutes=require('./routes/swipes.js');
 const app = express();
 const PORT = 3000;
 
@@ -17,3 +18,4 @@ app.get('/',(req,res) =>{
 app.listen(PORT, ()=>{
   console.log('the server is listening')
 });
+app.use('/api/swipes',swipeRoutes);
