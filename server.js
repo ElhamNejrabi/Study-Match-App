@@ -3,6 +3,7 @@ const sessions= require('express-session');
 const authRoutes= require('./routes/auth.js');
 const profileRoutes= require('./routes/profiles.js')
 const swipeRoutes=require('./routes/swipes.js');
+const messages= require('./routes/messages.js')
 const app = express();
 const PORT = 3000;
 
@@ -19,3 +20,4 @@ app.listen(PORT, ()=>{
   console.log('the server is listening')
 });
 app.use('/api/swipes',swipeRoutes);
+app.use('/api/messages',messages)
